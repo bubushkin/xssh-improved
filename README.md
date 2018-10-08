@@ -2,10 +2,39 @@
 
 TOL
 
-env vars in static flat file
-uservar.env
+XBASE=/opt/xssh/USER/
+XPATH=XBASE/bin
 
-var eg
-XPATH="val1:val2:val3";
-XBASE="/opt/xsshim"
+commands to fork
+  adduser
+  remuser
+  copy
+  move
+  show
+  export
+  unexport
+  
 
+adduser:
+  keys: -u USERNAME
+  creates user under XBASE and creates var.env file for environment variables
+
+remuser:
+  keys: -u USERNAME
+  deletes user from XBASE
+ 
+copy:
+  copies file from source to destination
+move:
+  same as copy, except it src is removed;
+show:
+  similar to "echo"
+  -f FILENAME will work as cat
+
+export:
+  export -v will write a new env variable to user's var.env file
+  e.g. export NEWVAR=somevalues
+  appends to buffer for immadiate use
+unexport:
+  removes variable from a buffer
+  
