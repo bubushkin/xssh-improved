@@ -25,16 +25,16 @@ typedef struct _LinkedList{
 
 } LinkedList;
 
-LinkedList *init_list();
+void *init_list();
 
 unsigned int get_size(struct _LinkedList *);
 
-void destruct(LinkedList *);
+void release_list_obj(LinkedList *);
 
 void init_node(Node **, void *);
 void insert(Node **, void *);
 int search(Node **, void *, void *);
-void delete();
+void delete(Node **, unsigned int);
 
 /*end of LinkedList interfaces */
 

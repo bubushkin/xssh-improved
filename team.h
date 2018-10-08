@@ -11,4 +11,6 @@ typedef LinkedList Team;
 
 Team *init_team(void);
 
+void destructor(Team *);
+
 #endif //LAB2_TEAM_H

@@ -6,8 +6,11 @@
 #include <stdio.h>
 #include <memory.h>
 #include "utils.h"
+#include "const.h"
 
-//traverse through the list counting nodes in the list and return the final count.
+/*
+ * Traverse through the list counting nodes in the list and return the final count.
+ */
 unsigned int get_size(LinkedList *palist){
 
     Node *paux = palist->pnode;
@@ -22,17 +25,9 @@ unsigned int get_size(LinkedList *palist){
     return palist->size;
 }
 
-void init_node(Node **pnode, void *pVoid){
-
-    *pnode = (Node *)malloc(sizeof(Node));
-    (*pnode)->element = pVoid;
-
-}
-
 /*
  * Deletes the element from the list, assuming our offset is correct :P
  */
-
 void delete(Node **pastart, unsigned int aoffset){
 
     int offset = 0x0;
@@ -65,8 +60,9 @@ void insert(Node **start, void *pVoid){
         pend->p_next = NULL;
         paux->p_next = pend;
     } else{
-        fprintf(stderr, "Memory allocation failed:[%s]\n", __FUNCTION__);
+        PRINT_ERR("Memory allocation failed");
     }
+
 }
 
 /*
@@ -90,31 +86,37 @@ int search(Node **pastart, void *pVoid, void *pVoidAddr){
 /*
  * Constructor
  */
-LinkedList *init_list(){
+void *init_list(){
 
     LinkedList *p_linkedList = NULL;
-    p_linkedList = (LinkedList *) malloc(sizeof(LinkedList));
+    p_linkedList = malloc(sizeof(LinkedList));
     p_linkedList->size = 0x0;
     p_linkedList->pf_get_size = get_size;
     p_linkedList->pf_insert = insert;
     p_linkedList->pf_delete = delete;
     p_linkedList->pf_search = search;
-    p_linkedList->pf_initialize
+    p_linkedList->pf_initialize = init_node;
 
     return p_linkedList;
 }
+
+void init_node(Node **pnode, void *pVoid){
+
+    *pnode = (Node *)malloc(sizeof(Node));
+    if(pnode == NULL){
+        PRINT_ERR("Memory allocation failed");
+    }
+    (*pnode)->element = pVoid;
+    (*pnode)->p_next = NULL;
+
+}
+
 /*
  * Destructor
  */
-void destruct(LinkedList *palist){
+void release_list_obj(LinkedList *palist){
 
     LinkedList *aux;
-
-    while(palist->pnode != NULL){
-        aux = palist;
-        palist->pnode = palist->pnode->p_next;
-        free(aux);
-    }
 
     palist->pf_initialize = NULL;
     palist->pf_insert = NULL;
@@ -123,5 +125,9 @@ void destruct(LinkedList *palist){
     palist->pf_delete = NULL;
     palist->pf_get_size = NULL;
 
-    free(palist);
+    while(palist->pnode != NULL){
+        aux = palist;
+        palist->pnode = palist->pnode->p_next;
+        free(aux);
+    }
 }
