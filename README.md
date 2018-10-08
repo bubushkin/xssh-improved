@@ -34,7 +34,7 @@ show:
 export:
   export -v will write a new env variable to user's var.env file
   e.g. export NEWVAR=somevalues
-  appends to buffer for immadiate use
+  appends to buffer for immediate use
 unexport:
   removes variable from a buffer
   
