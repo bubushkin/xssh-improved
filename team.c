@@ -19,3 +19,6 @@ Team *init_team(){
 void destructor(Team *palist){
     release_list_obj(palist);
 }
+
+
+

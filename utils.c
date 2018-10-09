@@ -50,6 +50,10 @@ void delete(Node **pastart, unsigned int aoffset){
  */
 void insert(Node **start, void *pVoid){
 
+    if(*start == NULL){
+        init_node(start, pVoid);
+        return;
+    }
     Node *paux = *start;
     while(paux->p_next != NULL){
         paux = paux->p_next;
@@ -62,7 +66,6 @@ void insert(Node **start, void *pVoid){
     } else{
         PRINT_ERR("Memory allocation failed");
     }
-
 }
 
 /*

@@ -38,4 +38,6 @@ void delete(Node **, unsigned int);
 
 /*end of LinkedList interfaces */
 
+
+
 #endif //LAB2_UTILS_H
