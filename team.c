@@ -10,7 +10,7 @@
  * Team object constructor
  */
 Team *init_team(){
-    Team *p_teamList = (Team *)init_list();
+    return (Team *)init_list();
 }
 
 /*
